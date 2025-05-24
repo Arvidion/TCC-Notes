@@ -6,12 +6,10 @@ export const createNotes = async (req, res) => {
 
   try {
     const notes = await Notes.create({
-      title,
-      note,
-      userId: id,
+      title, note, userId: id,
     });
     res.status(201).json({
-      message: "Notes berhasil dibuat",
+      message: "Notes Created",
       userId: id,
       data: notes,
     });
@@ -27,7 +25,7 @@ export const getNotes = async (req, res) => {
     const notes = await Notes.findAll({ where: { userId: id } });
 
     res.status(200).json({
-      message: "Notes berhasil diambil",
+      message: "Notes Found",
       userId: id,
       data: notes,
     });
@@ -42,19 +40,14 @@ export const updateNotes = async (req, res) => {
   const userId = req.user.id;
   const { title, note } = req.body;
   try {
-    const notes = await Notes.update(
-      {
-        title,
-        note,
-      },
-      {
-        where: {
-          id,
-        },
+    const notes = await Notes.update({
+        title, note,
+      },{ 
+        where: { id },
       }
     );
     res.status(200).json({
-      message: "Notes berhasil diupdate",
+      message: "Notes Updated",
       userId,
       data: notes,
     });
@@ -65,17 +58,15 @@ export const updateNotes = async (req, res) => {
 
 export const deleteNotes = async (req, res) => {
   const { id } = req.params;
-  console.log("ID NOTES = ", id);
+  console.log("Id Note = ", id);
 
   const userId = req.user.id;
   try {
     const notes = await Notes.destroy({
-      where: {
-        id,
-      },
+      where: { id },
     });
     res.status(200).json({
-      message: "Notes berhasil dihapus",
+      message: "Notes Deleted",
       userId,
       data: notes,
     });
