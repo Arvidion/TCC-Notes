@@ -13,74 +13,62 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
-    // Logic untuk autentikasi login
     console.log("Login with", { username, password });
     try {
-      const result = await login(username, password); // simpan token ke context & cookie
+      const result = await login(username, password);
       if (result) {
-        navigate("/notes"); // redirect setelah login
+        navigate("/notes");
       } else {
         alert("Login failed");
       }
-
     } catch (error) {
-      // Log error untuk debug
       console.error("Login Error:", error.response ? error.response.data : error.message);
       alert("Login failed: " + (error.response ? error.response.data.message : error.message));
     }
   };
 
   return (
-    <div className="section">
-      <div className="container">
-        <div className="column is-half is-offset-one-quarter">
-          <div className="box">
-            <h2 className="title is-3 has-text-centered">Login</h2>
-            <form onSubmit={handleLogin}>
-              <div className="field">
-                <label className="label" htmlFor="username">Username</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label" htmlFor="password">Password</label>
-                <div className="control">
-                  <input
-                    className="input"
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-              <div className="field">
-                <div className="control">
-                  <button className="button is-primary is-fullwidth" type="submit">
-                    Login
-                  </button>
-                </div>
-              </div>
-              {error && <p className="has-text-danger has-text-centered">{error}</p>}
-              <p className="has-text-centered mt-4">
-                Belum punya akun?{" "}
-                <Link to="/register" className="has-text-link">
-                  Daftar Disini
-                </Link>
-              </p>
-            </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-600">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
-        </div>
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            Login
+          </button>
+        </form>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <p className="mt-4 text-center text-sm">
+          Belum punya Akun?{" "}
+          <Link to="/register" className="text-blue-500 hover:underline">
+            Daftar Disini
+          </Link>
+        </p>
       </div>
     </div>
   );
