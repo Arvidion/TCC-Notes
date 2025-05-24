@@ -1,0 +1,30 @@
+POST https://notes-backend-wijdan-13926268988.us-central1.run.app/register
+Content-Type: application/json
+
+{
+    "username": "123",
+    "password": "123",
+    "confirm_password": "123"
+}
+
+###
+POST https://notes-backend-wijdan-13926268988.us-central1.run.app/login
+Content-Type: application/json
+
+{
+    "username": "123",
+    "password": "123"
+}
+
+###
+GET http://localhost:7000/token
+
+###
+GET http://localhost:7000/notes
+Content-Type: application/json
+Authorization: Bereer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiIxMjMiLCJpYXQiOjE3NDY5NzI0OTEsImV4cCI6MTc0Njk3MjUyMX0.GN_EG6SBmx8VxQaJwJ9gB2QvTkW_XDeyXHgaBzU5hVI
+
+{
+  "title": "Test Ubah",
+  "content": "Ini"
+}
