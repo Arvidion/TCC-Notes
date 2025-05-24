@@ -9,7 +9,7 @@ const port = process.env.PORT || 7000;
 
 const corsOptions = {
  origin: [
-    "https://backend-havas-352792921038.us-central1.run.app",
+    "https://notesapp-dot-f-06-450706.uc.r.appspot.com",
     "http://localhost:3000",
   ],
   credentials: true,
