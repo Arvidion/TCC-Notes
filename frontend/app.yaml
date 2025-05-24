@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: NotesApp
+service: notesapp
 instance_class: F1
 
 handlers:
