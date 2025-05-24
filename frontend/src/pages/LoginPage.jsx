@@ -28,50 +28,55 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-600">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="w-full p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-            Login
-          </button>
-        </form>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <p className="mt-4 text-center text-sm">
-          Belum punya Akun?{" "}
-          <Link to="/register" className="text-blue-500 hover:underline">
-            Daftar Disini
-          </Link>
-        </p>
-      </div>
+  <div className="min-h-screen flex items-center justify-center bg-[#f5f3ef]">
+    <div className="bg-white p-8 rounded-xl shadow-lg w-96 border border-[#d6c4a8]">
+      <h2 className="text-2xl font-bold text-center mb-6 text-[#6e4c1e]">Login</h2>
+      <form onSubmit={handleLogin}>
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-sm font-medium text-[#7a6149]">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            className="w-full p-3 mt-2 border border-[#c2b49b] rounded-md focus:outline-none focus:ring-2 focus:ring-[#b28b55] bg-[#fcfbf8]"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm font-medium text-[#7a6149]">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="w-full p-3 mt-2 border border-[#c2b49b] rounded-md focus:outline-none focus:ring-2 focus:ring-[#b28b55] bg-[#fcfbf8]"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full p-3 bg-[#a67c52] text-white rounded-md hover:bg-[#8a6642] transition"
+        >
+          Login
+        </button>
+      </form>
+      {error && (
+        <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+      )}
+      <p className="mt-4 text-center text-sm text-[#6e4c1e]">
+        Belum punya akun?{" "}
+        <Link to="/register" className="text-[#a67c52] hover:underline">
+          Daftar Disini
+        </Link>
+      </p>
     </div>
-  );
-};
+  </div>
+);
+
 
 export default LoginPage;
