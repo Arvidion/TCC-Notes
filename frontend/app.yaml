@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: NotesApp-Havas
+service: NotesApp_Havas
 instance_class: F1
 
 handlers:
