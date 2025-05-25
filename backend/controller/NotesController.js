@@ -2,15 +2,16 @@ import Notes from "../model/NotesModel.js";
 
 export const createNotes = async (req, res) => {
   const { title, note } = req.body;
-  const id = req.user.id;
+  const userId = req.user.id;
 
   try {
     const notes = await Notes.create({
-      title, note, userId: id,
+      title,
+      note,
+      userId
     });
     res.status(201).json({
-      message: "Notes Created",
-      userId: id,
+      message: "Notes berhasil dibuat",
       data: notes,
     });
   } catch (error) {
@@ -19,14 +20,16 @@ export const createNotes = async (req, res) => {
 };
 
 export const getNotes = async (req, res) => {
-  const id = req.user.id;
+  const userId = req.user.id;
 
   try {
-    const notes = await Notes.findAll({ where: { userId: id } });
+    const notes = await Notes.findAll({ 
+      where: { userId },
+      order: [['createdAt', 'DESC']]
+    });
 
     res.status(200).json({
-      message: "Notes Found",
-      userId: id,
+      message: "Notes berhasil diambil",
       data: notes,
     });
   } catch (error) {
@@ -36,20 +39,32 @@ export const getNotes = async (req, res) => {
 
 export const updateNotes = async (req, res) => {
   const { id } = req.params;
-
   const userId = req.user.id;
   const { title, note } = req.body;
+
   try {
-    const notes = await Notes.update({
-        title, note,
-      },{ 
-        where: { id },
-      }
+    const existingNote = await Notes.findOne({
+      where: { id, userId }
+    });
+
+    if (!existingNote) {
+      return res.status(404).json({ 
+        message: "Note tidak ditemukan atau Anda tidak memiliki akses" 
+      });
+    }
+
+    await Notes.update(
+      { title, note },
+      { where: { id, userId } }
     );
+
+    const updatedNote = await Notes.findOne({
+      where: { id, userId }
+    });
+
     res.status(200).json({
-      message: "Notes Updated",
-      userId,
-      data: notes,
+      message: "Notes berhasil diupdate",
+      data: updatedNote,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -58,17 +73,26 @@ export const updateNotes = async (req, res) => {
 
 export const deleteNotes = async (req, res) => {
   const { id } = req.params;
-  console.log("Id Note = ", id);
-
   const userId = req.user.id;
+
   try {
-    const notes = await Notes.destroy({
-      where: { id },
+    const existingNote = await Notes.findOne({
+      where: { id, userId }
     });
+
+    if (!existingNote) {
+      return res.status(404).json({ 
+        message: "Note tidak ditemukan atau Anda tidak memiliki akses" 
+      });
+    }
+
+    await Notes.destroy({
+      where: { id, userId }
+    });
+
     res.status(200).json({
-      message: "Notes Deleted",
-      userId,
-      data: notes,
+      message: "Notes berhasil dihapus",
+      data: existingNote
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
