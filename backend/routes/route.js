@@ -1,10 +1,11 @@
 import express from "express";
 import { createNotes, getNotes, updateNotes, deleteNotes } from "../controller/NotesController.js";
-import { Register, Login, refreshToken, logout } from "../controller/UsersController.js";
+import { getUsers, Register, Login, refreshToken, logout } from "../controller/UsersController.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
+router.get("/getUsers", getUsers)
 router.post("/register", Register);
 router.post("/login", Login);
 router.get("/token", refreshToken);
