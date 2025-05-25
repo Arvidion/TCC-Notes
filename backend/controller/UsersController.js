@@ -2,12 +2,20 @@ import Users from "../model/UsersModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const getUsers = async (res) => {
-  try{
-    const response = await Users.findAll();
-    res.status(200).json(response);
-  }catch(error){
-      console.log(error.message)
+export const getUsers = async (req, res) => {
+  try {
+    const response = await Users.findAll({
+      attributes: ['id', 'username']
+    });
+    res.status(200).json({
+      message: "Users retrieved successfully",
+      data: response
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while retrieving users",
+      error: error.message
+    });
   }
 }
 
